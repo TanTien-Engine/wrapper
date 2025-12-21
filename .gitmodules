@@ -1,0 +1,9 @@
+[submodule "external/vessel"]
+	path = external/vessel
+	url = git@github.com:xzrunner/vessel.git
+[submodule "external/guard"]
+	path = external/guard
+	url = git@github.com:xzrunner/guard.git
+[submodule "external/sm"]
+	path = external/sm
+	url = git@github.com:xzrunner/sm.git
