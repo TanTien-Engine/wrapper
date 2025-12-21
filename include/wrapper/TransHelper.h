@@ -4,14 +4,13 @@
 
 #include <SM_Vector.h>
 #include <SM_Matrix.h>
-//#include <polymesh3/Polytope.h>
 #include <vessel.h>
 
 #include <vector>
 #include <memory>
 #include <string>
 
-namespace tt
+namespace wrapper
 {
 
 std::vector<sm::vec2> list_to_vec2_array(int index);
@@ -53,8 +52,11 @@ void return_list2(const std::vector<std::vector<T>>& vals);
 void return_vec(const sm::vec2& vec2);
 void return_vec(const sm::vec3& vec3);
 
-//void return_poly(const std::shared_ptr<pm3::Polytope>& poly);
-//void return_poly_list(const std::vector<std::shared_ptr<pm3::Polytope>>& polys);
+template<typename T>
+void return_foreign(const std::shared_ptr<T>& foreign, const char* module_name, const char* class_name);
+
+template<typename T>
+void return_foreign_list(const std::vector<std::shared_ptr<T>>& foreigns, const char* module_name, const char* class_name);
 
 }
 

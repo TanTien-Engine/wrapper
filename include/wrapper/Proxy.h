@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace tt
+namespace wrapper
 {
 
 template<typename T>

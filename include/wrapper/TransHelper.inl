@@ -1,6 +1,6 @@
 #pragma once
 
-namespace tt
+namespace wrapper
 {
 
 template <typename T>
@@ -62,7 +62,7 @@ void list_to_foreigns(int index, std::vector<std::shared_ptr<T>>& foreigns)
     const int num = ves_len(index);
     for (int i = 0; i < num; ++i) {
         ves_geti(index, i);
-        foreigns.push_back(((tt::Proxy<T>*)ves_toforeign(-1))->obj);
+        foreigns.push_back(((wrapper::Proxy<T>*)ves_toforeign(-1))->obj);
         ves_pop(1);
     }
 }
@@ -114,6 +114,51 @@ void return_list2(const std::vector<std::vector<T>>& vals)
 
         ves_seti(-2, i);
         ves_pop(1);
+    }
+}
+
+template<typename T>
+void return_foreign(const std::shared_ptr<T>& foreign, const char* module_name, const char* class_name)
+{
+    if (foreign)
+    {
+        ves_pop(ves_argnum());
+    
+        ves_pushnil();
+        ves_import_class(module_name, class_name);
+        auto proxy = (wrapper::Proxy<T>*)ves_set_newforeign(0, 1, sizeof(wrapper::Proxy<T>));
+        proxy->obj = foreign;
+        ves_pop(1);
+    }
+    else
+    {
+        ves_set_nil(0);
+    }
+}
+
+template<typename T>
+void return_foreign_list(const std::vector<std::shared_ptr<T>>& foreigns, const char* module_name, const char* class_name)
+{
+    if (foreigns.empty())
+    {
+        ves_set_nil(0);
+    }
+    else
+    {
+        ves_pop(ves_argnum());
+    
+        const int num = (int)foreigns.size();
+        ves_newlist(num);
+        for (int i = 0; i < num; ++i)
+        {
+            ves_pushnil();
+            ves_import_class(module_name, class_name);
+            auto proxy = (wrapper::Proxy<T>*)ves_set_newforeign(1, 2, sizeof(wrapper::Proxy<T>));
+            proxy->obj = foreigns[i];
+            ves_pop(1);
+            ves_seti(-2, i);
+            ves_pop(1);
+        }
     }
 }
 
