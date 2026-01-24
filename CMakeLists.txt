@@ -10,7 +10,9 @@ set(ALL_FILES
     "include/wrapper/Proxy.h"
     "include/wrapper/TransHelper.h"
     "include/wrapper/TransHelper.inl"
+    "include/wrapper/Graph.h"
     "source/TransHelper.cpp"
+    "source/Graph.cpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
